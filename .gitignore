@@ -1,4 +1,4 @@
-HELP.md
+docs/HELP.md
 target/
 !wrapper/maven-wrapper.jar
 !**/src/main/**/target/

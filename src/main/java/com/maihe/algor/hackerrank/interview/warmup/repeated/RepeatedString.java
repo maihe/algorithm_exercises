@@ -1,4 +1,4 @@
-package com.maihe.algor.hackerrank.interview.warmup;
+package com.maihe.algor.hackerrank.interview.warmup.repeated;
 
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellComponent;
