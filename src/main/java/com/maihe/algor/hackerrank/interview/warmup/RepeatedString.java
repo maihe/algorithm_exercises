@@ -34,40 +34,32 @@ class Result {
 
     public static long repeatedString(String str, long n) {
         final String substring = "a";
-        System.out.println("N "+ n +" STR " + str);
-        long totalOcurrences = findOccurrences(str, substring);
-        System.out.println("As in base String " + totalOcurrences);
+        long totalOccurrences = findOccurrences(str, substring);
         long multiplier;
         if (n >= str.length()){
-            System.out.println("N >= than string -> multiply it ");
             multiplier = n/str.length();
-            System.out.println("n/str.length() " + multiplier);
-
-            totalOcurrences*=multiplier;
-            System.out.println("totalOcurrences " + totalOcurrences);
+            totalOccurrences*=multiplier;
             int diff = (int)(n - (multiplier * str.length()));
-            totalOcurrences += findOccurrences(str.substring(0, diff) , substring);
-        }// else {
-        //    System.out.print("N < than string -> crop it");
+            totalOccurrences += findOccurrences(str.substring(0, diff) , substring);
 
-        // }
-        return totalOcurrences;
+        } else {
+            totalOccurrences = findOccurrences(str.substring(0, Math.toIntExact(n)),substring);
+        }
+        System.out.println("fixed totalOccurrences " + totalOccurrences);
+
+        return totalOccurrences;
     }
 
     private static long findOccurrences(String str, String substring){
-        System.out.println("find A's in str " + str);
         long count = 0;
         int fromIndex = 0;
 
-        while (fromIndex < str.length()){
-            fromIndex = str.indexOf(substring, fromIndex);
+        while (fromIndex != -1){
+            fromIndex = str.indexOf(substring);
             if(fromIndex != -1){
-                str = str.substring(fromIndex);
+                str = str.substring(fromIndex+1);
                 count++;
-                fromIndex++;
-            } else { break; }
-
-
+            }
         }
         return count;
     }
@@ -76,15 +68,11 @@ class Result {
 
 class Solution {
     public static void main(String[] args) throws IOException {
-        System.out.println("main");
         BufferedReader bufferedReader = new BufferedReader(new FileReader("input"));
-        //BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("response"));
 
         String s = bufferedReader.readLine();
-
         long n = Long.parseLong(bufferedReader.readLine().trim());
-
         long result = Result.repeatedString(s, n);
 
         bufferedWriter.write(String.valueOf(result));
