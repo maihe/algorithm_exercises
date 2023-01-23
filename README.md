@@ -3,4 +3,5 @@ local projects to test puzzles from HackerRank and Cia.
 
 ## Statements 
 * [Warm Up](statements/warmup.md)
+* [Bubble Sort](statements/bubblesort.md)
 
