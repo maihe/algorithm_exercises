@@ -13,9 +13,9 @@ import static java.util.stream.Collectors.toList;
 public class FraudNotifications {
 
     @ShellMethod("Fraud Notifications")
-    public void markToys() throws IOException {
+    public void fraudNotifications() throws IOException {
         try {
-            System.out.println("Run - FraudNotifications");
+            System.out.println("Run - Fraud Notifications");
             Solution.main(null);
         } catch (Exception e){
             System.out.println(e.getMessage());
@@ -38,17 +38,31 @@ class Result {
     public static int activityNotifications(List<Integer> expenditure, int d) {
         int totalNotifications = 0;
 
-        for (int i=0; i < expenditure.size(); i++){
-            if(i > d){
-                //separa os D dias ate i-1
-                //ordena a sub lista
-                //pega a mediana da sub lista - se for impar, o do meio, se for par, a media dos 2 do meio
-                // compara a mediana com sublista[i]
-                // se for maior ou igual, a mediana x 2 contar notification++
+        for (int i=d, j=0; i < expenditure.size(); i++){
+            if(i >= d){
+                List<Integer> periodExpenses = expenditure.subList(j, j+d).stream().sorted().collect(toList());
+                double median = getMedian(periodExpenses);
+                if(expenditure.get(i) >= median*2){
+                    totalNotifications++;
+                    System.out.println("Send notification");
+                }
+                j++;
             }
 
         }
         return totalNotifications;
+    }
+
+    private static double getMedian(List<Integer> periodExpenses) {
+        double median = 0;
+        int size = periodExpenses.size();
+        if (size % 2 == 0) {
+            median = (periodExpenses.get(size / 2 - 1) + periodExpenses.get(size / 2)) / 2.0;
+        } else {
+            median = periodExpenses.get(size / 2);
+        }
+
+        return median;
     }
 }
 
